@@ -14,6 +14,9 @@ class TypeDefaults_class(object):
     def float(self): return np.random.random() * 100
 
     @property
+    def bool(self): return np.random.choice([True, False])
+
+    @property
     def str(self): return 'String'
 
     @property
@@ -65,7 +68,7 @@ def reflect_attrs(obj):
     instance, annotations = get_instance(obj=obj)
     for item in [i for i in dir(instance) if not i.startswith('_')]:
         func = getattr(instance, item)
-        if not callable(func):
+        if not callable(func) and item in annotations:
             print(f'Attribute `{item}`:{annotations[item].__name__} <--> {func}:{type(func).__name__}')
 
 
@@ -75,7 +78,7 @@ def get_instance(obj):
     for key, value in obj.__init__.__annotations__.items():
         params[key] = TypeDefaults.get(value)
         annotations[key] = value
-    if obj.__base__.__name__ is not object:
+    if obj.__base__ is not object:
         for key, value in obj.__base__.__init__.__annotations__.items():
             params[key] = TypeDefaults.get(value)
             annotations[key] = value

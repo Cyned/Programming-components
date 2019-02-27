@@ -1,15 +1,17 @@
 import json
 from time import sleep
 
-from reflection.reflection import reflect_methods, reflect_attrs, reflect_subclasses
+from reflection.reflections import reflect_methods, reflect_attrs, reflect_subclasses
 
 
 class Laptop(object):
 
-    _frequency   = None
-    _core_number = None
-    _ram         = None
-    _hard_disk   = None
+    _name:         str   = None
+    _frequency:    float = None
+    _core_number:  int   = None
+    _ram:          int   = None
+    _hard_disk:    int   = None
+    __switched_on: bool  = False
 
     def __init__(self, *, name: str, frequency: float, core_number: int, ram: int, hard_disk: int):
         self.name        = name
@@ -17,8 +19,6 @@ class Laptop(object):
         self.core_number = core_number
         self.ram         = ram
         self.hard_disk   = hard_disk
-
-        self.__switched_on = False
 
     @property
     def name(self) -> str:
@@ -28,8 +28,9 @@ class Laptop(object):
     @name.setter
     def name(self, name: str):
         """ Set the new name """
-        if name:
-            self._name = name
+        if not name or not isinstance(name, str):
+            raise TypeError
+        self._name = name
 
     @property
     def frequency(self) -> float:
@@ -39,8 +40,9 @@ class Laptop(object):
     @frequency.setter
     def frequency(self, frequency: float):
         """ Set frequency """
-        if isinstance(frequency, float) and frequency > 0:
-            self._frequency = frequency
+        if not isinstance(frequency, float) or frequency <= 0:
+            raise TypeError
+        self._frequency = frequency
 
     @property
     def core_number(self) -> int:
@@ -50,8 +52,9 @@ class Laptop(object):
     @core_number.setter
     def core_number(self, cores):
         """ Set cores number """
-        if isinstance(cores, int) and cores > 0:
-            self._core_number = cores
+        if not isinstance(cores, int) or cores <= 0:
+            raise TypeError
+        self._core_number = cores
 
     @property
     def ram(self) -> int:
@@ -61,8 +64,9 @@ class Laptop(object):
     @ram.setter
     def ram(self, ram):
         """ Set RAM """
-        if isinstance(ram, int) and ram > 0:
-            self._ram = ram
+        if not isinstance(ram, int) or ram <= 0:
+            raise TypeError
+        self._ram = ram
 
     @property
     def hard_disk(self) -> int:
@@ -72,8 +76,9 @@ class Laptop(object):
     @hard_disk.setter
     def hard_disk(self, hard_disk):
         """ Returns hard disk capacity """
-        if isinstance(hard_disk, int) and hard_disk > 0:
-            self._hard_disk = hard_disk
+        if not isinstance(hard_disk, int) or hard_disk <= 0:
+            raise TypeError
+        self._hard_disk = hard_disk
 
     @property
     def switched_on(self):
