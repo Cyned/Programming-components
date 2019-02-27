@@ -1,6 +1,7 @@
 import json
 
-from reflection import Laptop, reflect_attrs, reflect_methods, reflect_subclasses
+from reflection import Laptop
+from reflection.reflection import reflect_attrs, reflect_methods, reflect_subclasses
 
 
 class Tablet(Laptop):
