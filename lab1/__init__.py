@@ -3,5 +3,6 @@ from lab1.tablet import Tablet
 
 
 __all__ = [
-    'Laptop'
+    'Laptop',
+    'Tablet',
 ]
