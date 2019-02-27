@@ -1,5 +1,4 @@
-from lab1 import Laptop, Tablet
-from lab1.reflection import reflect_attrs, reflect_subclasses, reflect_methods
+from reflection import Laptop, Tablet, reflect_attrs, reflect_subclasses, reflect_methods
 
 
 if __name__ == '__main__':

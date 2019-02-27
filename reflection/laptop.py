@@ -1,7 +1,7 @@
 import json
 from time import sleep
 
-from lab1.reflection import reflect_methods, reflect_attrs, reflect_subclasses
+from reflection import reflect_methods, reflect_attrs, reflect_subclasses
 
 
 class Laptop(object):
