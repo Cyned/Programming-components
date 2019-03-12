@@ -12,7 +12,7 @@ class Controller(object):
         )
         self.__view = View(self.laptop)
 
-    def set_name(self, new_name: str):
+    def set_name(self, new_name):
         """ Set new name """
         self.laptop.name = str(new_name)
 
@@ -20,7 +20,7 @@ class Controller(object):
         """ Returns core number """
         return self.laptop.name
 
-    def set_frequency(self, new_frequency: float):
+    def set_frequency(self, new_frequency):
         """ Set new frequency"""
         self.laptop.frequency = float(new_frequency)
 
@@ -28,7 +28,7 @@ class Controller(object):
         """ Returns frequency """
         return self.laptop.frequency
 
-    def set_cores(self, new_cores: int):
+    def set_cores(self, new_cores):
         """ Set new core number """
         self.laptop.core_number = int(new_cores)
 
@@ -36,7 +36,7 @@ class Controller(object):
         """ Returns core number """
         return self.laptop.core_number
 
-    def set_ram(self, new_ram: int):
+    def set_ram(self, new_ram):
         """ Set new ram """
         self.laptop.ram = int(new_ram)
 
@@ -44,7 +44,7 @@ class Controller(object):
         """ Returns ram """
         return self.laptop.ram
 
-    def set_hard_disk(self, new_hard_disk: int):
+    def set_hard_disk(self, new_hard_disk):
         """ Set new hard disk """
         self.laptop.hard_disk = int(new_hard_disk)
 
