@@ -1,18 +1,20 @@
-from mocki.controller import Controller
-
 
 input_str    = lambda *args, **kwargs: input(*args, **kwargs)
 input_number = lambda *args, **kwargs: input(*args, **kwargs)
+input_int = lambda *args, **kwargs: input(*args, **kwargs)
+input_float = lambda *args, **kwargs: input(*args, **kwargs)
 
 
 def get_service():
-    controller = Controller()
+    params = {}
     name = input_str('Input new name:')
-    controller.set_name(new_name=name)
-    frequency = input_number('Input new frequency:')
-    controller.set_frequency(new_frequency=frequency)
-    hard_disk = input_number('Input new hard_disk:')
-    controller.set_hard_disk(new_hard_disk=hard_disk)
-    ram = input_number('Input new ram:')
-    controller.set_ram(new_ram=ram)
-    return controller
+    params['new_name'] = str(name)
+    frequency = input_float('Input new frequency:')
+    params['new_frequency'] = float(frequency)
+    hard_disk = input_int('Input new hard_disk:')
+    params['new_hard_disk'] = int(hard_disk)
+    ram = input_int('Input new ram:')
+    params['new_ram'] = int(ram)
+    cores = input_int('Input number of cores:')
+    params['new_cores'] = int(cores)
+    return params

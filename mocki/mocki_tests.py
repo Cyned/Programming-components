@@ -2,43 +2,54 @@ import unittest
 from unittest.mock import patch
 
 from mocki.controller import Controller
-from mocki.service import get_service
+from reflection.laptop import Laptop
 
 
-def get_controller():
-    return Controller(name='Lenovo')
+def get_controller(name='Acer', frequency=1.2, core_number=2, ram=4, hard_disk=64):
+    contr = Controller()
+    contr.laptop = Laptop(
+        name=name, frequency=frequency, core_number=core_number, ram=ram, hard_disk=hard_disk,
+    )
+    return contr
 
 
 class TestLaptop(unittest.TestCase):
-    @patch('mocki.service.input_str', return_value='test')
-    @patch('mocki.service.input_number', return_value='1')
-    def test_setters(self, input_number, input_str):
+
+    @patch('mocki.service.input_str', return_value='Acer')
+    @patch('mocki.service.input_int', return_value='1')
+    @patch('mocki.service.input_float', return_value='1.2')
+    def test_get_service(self, input_float, input_int, input_str):
         controller = get_controller()
-        new_name = input_str('Input new name')
-        controller.set_name(new_name=new_name)
-        self.assertEqual(controller.get_name(), 'test')
-
-        hard_disk = input_number('Input new hard disk')
-        controller.set_hard_disk(new_hard_disk=hard_disk)
-        self.assertEqual(controller.get_hard_disk(), 1)
-
-        new_ram = input_number('Input new ram')
-        controller.set_ram(new_ram=new_ram)
-        self.assertEqual(controller.get_ram(), 1)
-
-        new_frequency = input_number('Input new frequency')
-        controller.set_frequency(new_frequency=new_frequency)
-        self.assertEqual(controller.get_ram(), 1.0)
-
-    @patch('mocki.service.input_str', return_value='test')
-    @patch('mocki.service.input_number', return_value='1')
-    def test_get_service(self, input_number, input_str):
-        controller = get_service()
-        controller.set_name('Acer')
-        self.assertEqual(controller.get_name(), 'Acer')
-
+        controller.create_laptop()
+        self.assertEqual(controller.laptop.name, 'Acer')
+        input_float.assert_called()
         input_str.assert_called()
-        input_number.assert_called()
+        input_int.assert_called()
+
+        # controller.update_cores()
+        # self.assertEqual(controller.laptop.core_number, 1)
+        #
+        # input_int.assert_called()
+
+    @patch('mocki.controller.input_str', return_value='Acer')
+    @patch('mocki.controller.input_int', return_value='1')
+    @patch('mocki.controller.input_float', return_value='1.2')
+    def test_setters(self, input_float, input_int, input_str):
+        controller = get_controller()
+        controller.update_name()
+        self.assertEqual(controller.laptop.name, 'Acer')
+
+        controller.update_cores()
+        self.assertEqual(controller.laptop.core_number, 1)
+
+        controller.update_frequency()
+        self.assertEqual(controller.laptop.frequency, 1.2)
+
+        controller.update_ram()
+        self.assertEqual(controller.laptop.ram, 1)
+
+        controller.update_hard_disk()
+        self.assertEqual(controller.laptop.hard_disk, 1)
 
 
 if __name__ == '__main__':
