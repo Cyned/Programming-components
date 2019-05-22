@@ -1,0 +1,8 @@
+{% for key, values in output.items%}
+    <h1>
+        {{ key}}
+    </h1>
+    {% for v in values %}
+        <p>{{ v }}</p>
+    {% endfor %}
+{% endfor %}
