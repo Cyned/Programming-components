@@ -1,6 +1,8 @@
 from time import sleep
 
 from typing import List
+from patterns.command import Invoker, ConcreteCommand
+from patterns.proxy import ProxyLaptop
 
 
 class Singleton(type):
@@ -105,8 +107,14 @@ class Laptop(object, metaclass=Singleton):
         else:
             print('Laptop is already switched on.')
 
+    def get_user(self):
+        """ Print user logged in """
+        return 'denis'
+
 
 if __name__ == '__main__':
+    # Singleton
+    print(f'{"-"*10}Singleton{"-"*10}')
     laptop1 = Laptop('Lenovo')
     print(laptop1)
 
@@ -115,7 +123,27 @@ if __name__ == '__main__':
 
     print(laptop1 == laptop2)
 
+    # Iterable
+    print(f'{"-"*10}Itarator{"-"*10}')
     for port in laptop1:
         print(port, end=', ')
     print()
+
+    # Decorator
+    print(f'{"-"*10}Decorator{"-"*10}')
     laptop1.turn_on()
+    laptop1.turn_off()
+
+    # command
+    print(f'{"-"*10}Command{"-"*10}')
+    concrete_command = ConcreteCommand(laptop1)
+    invoker = Invoker()
+    invoker.store_command(concrete_command)
+    invoker.execute_commands()
+    laptop1.turn_off()
+
+    # Proxy
+    print(f'{"-"*10}Proxy{"-"*10}')
+    proxy_laptop1 = ProxyLaptop(laptop1)
+    proxy_laptop1.print()  # loading necessary
+    proxy_laptop1.print()  # loading unnecessary
